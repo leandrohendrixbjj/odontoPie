@@ -2,8 +2,8 @@ const empresaRepo = require('../repositories/empresaRepository')
 
 exports.getAll = async (req, res) => {
   try {
-    const empresas = await empresaRepo.getAll()
-    res.json(empresas)
+    const data = await empresaRepo.getAll()
+    res.json(data)
   } catch (err) {
     res.status(500).json({ error: err.message })
   }
@@ -11,11 +11,11 @@ exports.getAll = async (req, res) => {
 
 exports.getById = async (req, res) => {
   try {
-    const empresa = await empresaRepo.getById(req.params.id)
-    if (!empresa) {
+    const data = await empresaRepo.getById(req.params.id)    
+    if (!data.empresa) {
       return res.status(404).json({ message: 'Empresa não encontrada' })
     }
-    res.json(empresa)
+    res.json(data)
   } catch (err) {
     res.status(500).json({ error: err.message })
   }
@@ -27,6 +27,7 @@ exports.create = async (req, res) => {
     const data = await empresaRepo.create({ razao_social, cnpj, email, tipo_pessoa })
     res.status(201).json(data)
   } catch (err) {
+    console.log('err',err.message)       
     res.status(500).json({ error: err.message })
   }
 }

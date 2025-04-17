@@ -1,3 +1,7 @@
-1-) Criar teste para Empresas
+1-) Criar teste para validar cnpj, email em create
+
+2-) Criar teste para edit do empresa controller
+
+3-) Criar teste para delete do empresa controller
 
 
