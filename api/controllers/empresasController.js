@@ -34,10 +34,9 @@ exports.create = async (req, res) => {
 
 exports.edit = async (req, res) => {
   try {
-    const { razao_social, cnpj, email, tipo_pessoa } = req.body
+    const { razao_social, email, tipo_pessoa } = req.body
     const data = await empresaRepo.update(req.params.id, {
-      razao_social,
-      cnpj,
+      razao_social,      
       email,
       tipo_pessoa
     })

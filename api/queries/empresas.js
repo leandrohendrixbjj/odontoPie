@@ -19,8 +19,7 @@ const INSERT_EMPRESA = `
 
 const UPDATE_EMPRESA = `
   UPDATE T01_empresas SET
-    razao_social = ?,
-    cnpj = ?,
+    razao_social = ?,    
     email = ?,
     tipo_pessoa = ?
   WHERE public_id = ?

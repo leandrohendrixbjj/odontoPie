@@ -27,8 +27,7 @@ router.put(
   '/:id',
   validateId,
   validateEmpresaCampos,
-  consultaEmpresaEmail,
-  consultaEmpresaCNPJ,
+  consultaEmpresaEmail,  
   empresasController.edit
 )
 

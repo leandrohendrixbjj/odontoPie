@@ -76,17 +76,16 @@ async function create({
 }
 
 async function update(id, {
-  razao_social,
-  cnpj,
+  razao_social,  
   email,
   tipo_pessoa
 }) {
-  if (!razao_social || !cnpj || !email || !tipo_pessoa) {
+  if (!razao_social || !email || !tipo_pessoa) {
     throw new Error('Campos obrigatórios: razao_social, cnpj, email e tipo_pessoa')
   }
 
   try {
-    const [result] = await db.query(UPDATE_EMPRESA, [razao_social, cnpj, email, tipo_pessoa, id])
+    const [result] = await db.query(UPDATE_EMPRESA, [razao_social, email, tipo_pessoa, id])
 
     if (result.affectedRows === 0) {
       return {
