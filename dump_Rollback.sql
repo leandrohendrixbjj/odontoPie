@@ -1,0 +1,8 @@
+use saudesys;
+
+DROP TABLE IF EXISTS T06_agenda_produtos;
+DROP TABLE IF EXISTS T05_agenda;
+DROP TABLE IF EXISTS T04_produtos;
+DROP TABLE IF EXISTS T03_pessoas;
+DROP TABLE IF EXISTS T02_usuarios;
+DROP TABLE IF EXISTS T01_empresas;

@@ -12,7 +12,8 @@ module.exports = async (req, res, next) => {
       .isEmail().withMessage('E-mail inválido')
       .run(req),
     check('tipo_pessoa')
-      .isIn(['fisica', 'juridica']).withMessage('Tipo de pessoa deve ser "fisica" ou "juridica"')
+      .isIn(['PF', 'PJ'])
+      .withMessage('Tipo de pessoa deve ser "fisica" ou "juridica"')
       .run(req),
   ])
 
