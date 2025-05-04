@@ -2,14 +2,18 @@ const empresaRepo = require('../../../repositories/empresaRepository')
 
 module.exports = async (req, res, next) => {
   try {
-    const metodo = req.method
-    const { email } = req.body
+    const { method } = req
+    const { email,cnpj } = req.body
 
-    const emailExistente = await empresaRepo.findByEmail(email)
+    const emailExistente = await empresaRepo.findByEmail(email, method === 'PUT' ? cnpj : undefined)
+    
+    const erroEmail = method === 'POST'
+      ? `E-mail: ${email} já possui cadastro`
+      : `E-mail: ${email} já está sendo usado por outro cadastro`
 
-    if (metodo === 'POST' && emailExistente) {
-      return res.status(409).json({ error: `E-mail: ${email} já possui cadastro` });
-    }
+    if (emailExistente) {
+      return res.status(409).json({ error: erroEmail })
+    }  
     
     next() 
   } catch (err) {

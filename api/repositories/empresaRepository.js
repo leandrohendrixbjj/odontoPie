@@ -10,7 +10,8 @@ const {
   INSERT_EMPRESA,
   UPDATE_EMPRESA,
   DELETE_EMPRESA,
-  GET_EMPRESA_EMAIL,
+  GET_EMPRESA_EMAIL,  
+  GET_EMPRESA_EMAIL_CNPJ,
   GET_EMPRESA_CNPJ
 } = require('../queries/empresas')
 
@@ -125,15 +126,20 @@ async function softDelete(id) {
   }
 }
 
-async function findByEmail(email) {
+async function findByEmail(email,cnpj) {
   try {
-    const [result] = await db.query(GET_EMPRESA_EMAIL, [email])
-    
-    if (result[0].emails === 0) {
-      return false
-    }
+    let query = GET_EMPRESA_EMAIL
 
-    return true
+    const params = [email]
+
+    if (cnpj) {
+      query = GET_EMPRESA_EMAIL_CNPJ
+      params.push(cnpj)
+    }    
+    
+    const [result] = await db.query(query,params)    
+        
+    return result[0].emails > 0
   } catch (err) {
     console.error(`Erro na consuta do e-mail ${email} da empresa:`, err.message)
     throw new Error('Erro na consuta do e-mail da empresa')

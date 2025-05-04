@@ -37,6 +37,13 @@ const GET_EMPRESA_EMAIL = `
   WHERE email= ?  
 `;
 
+const GET_EMPRESA_EMAIL_CNPJ = `
+  SELECT count(*) AS emails
+  FROM T01_empresas
+  WHERE email= ?  
+  AND cnpj= ?
+`;
+
 const GET_EMPRESA_CNPJ = `
   SELECT count(*) AS cnpjs
   FROM T01_empresas
@@ -51,5 +58,6 @@ module.exports = {
   UPDATE_EMPRESA,
   DELETE_EMPRESA,
   GET_EMPRESA_EMAIL,
+  GET_EMPRESA_EMAIL_CNPJ,
   GET_EMPRESA_CNPJ
 };
