@@ -63,6 +63,27 @@ describe('POST /empresas', () => {
     expect(res.statusCode).toBe(201)    
   })
 
+  it('✅ Tentativa de Criar uma Empresas já existe ( Email ou CNPJ )', async () => {
+    
+    const body = {
+      razao_social: 'Nova Empresa Teste',
+      cnpj: '007',
+      email: 'teste6@novaempresa.com.br',
+      tipo_pessoa: 'PJ'
+    }        
+    
+    app.post('/empresas', 
+        consultaEmpresaEmail, 
+        consultaEmpresaCNPJ, 
+        empresaController.create)
+    
+    const res = await request(app)
+      .post('/empresas')
+      .send(body)
+      console.log(res.error.text)    
+    expect(res.statusCode).toBe(409)    
+  })
+
   it.skip('❌ Valida Empresa Campos Obrigatórios', async () => {
     
     const body = {      
