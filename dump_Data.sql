@@ -1,5 +1,6 @@
 use saudesys;
 
+-- x12_empresas
 INSERT INTO x12_empresas (
     public_id, razao_social, cnpj, email, tipo_pessoa
 ) VALUES (
@@ -10,6 +11,7 @@ INSERT INTO x12_empresas (
     'PJ'
 );
 
+-- x12_usuarios
 INSERT INTO x12_usuarios (
     public_id, nome, email, senha, status, perfil, empresa_id
 ) VALUES
@@ -31,4 +33,16 @@ INSERT INTO x12_usuarios (
     'usuario',
     '123e4567-e89b-12d3-a456-426614174000'
 );
+
+-- x12_status
+INSERT INTO x12_status (public_id, nome)
+VALUES
+  ('S001', 'Agendado'),
+  ('S002', 'Triagem'),
+  ('S003', 'Cotação'),
+  ('S004', 'Tratamento'),
+  ('S005', 'Alta'),
+  ('S006', 'Reaberto'),
+  ('S007', 'Cancelado');
+
 

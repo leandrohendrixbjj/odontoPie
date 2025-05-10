@@ -29,6 +29,7 @@ CREATE TABLE x12_usuarios (
 
 CREATE TABLE x12_pessoas (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    public_id CHAR(36) UNIQUE NOT NULL,
     cnpj VARCHAR(14) UNIQUE,
     razao_social VARCHAR(100) NOT NULL,
     email VARCHAR(100) NULL,
@@ -39,8 +40,8 @@ CREATE TABLE x12_pessoas (
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     updatedAt DATETIME ON UPDATE CURRENT_TIMESTAMP,
     deletedAt DATETIME NULL,
-    empresa_id INT NOT NULL,
-    FOREIGN KEY (empresa_id) REFERENCES x12_empresas(id)
+    empresa_id CHAR(36) NOT NULL,
+    FOREIGN KEY (empresa_id) REFERENCES x12_empresas(public_id)
 );
 
 CREATE TABLE x12_produtos (
@@ -51,8 +52,17 @@ CREATE TABLE x12_produtos (
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     updatedAt DATETIME ON UPDATE CURRENT_TIMESTAMP,
     deletedAt DATETIME NULL,
-    empresa_id INT NOT NULL,
-    FOREIGN KEY (empresa_id) REFERENCES x12_empresas(id) 
+    empresa_id CHAR(36) NOT NULL,
+    FOREIGN KEY (empresa_id) REFERENCES x12_empresas(public_id) 
+);
+
+CREATE TABLE x12_status (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    public_id CHAR(5) UNIQUE NOT NULL,
+    nome VARCHAR(100) NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME ON UPDATE CURRENT_TIMESTAMP,
+    deletedAt DATETIME NULL
 );
 
 CREATE TABLE x12_agenda (
@@ -63,11 +73,14 @@ CREATE TABLE x12_agenda (
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     updatedAt DATETIME ON UPDATE CURRENT_TIMESTAMP,
     deletedAt DATETIME NULL,
-	pessoa_id INT NOT NULL,	
-	empresa_id INT NOT NULL,
-	FOREIGN KEY (pessoa_id) REFERENCES x12_pessoas(id), 
-	FOREIGN KEY (empresa_id) REFERENCES x12_empresas(id) 
+    pessoa_id CHAR(36) NOT NULL,
+    empresa_id CHAR(36) NOT NULL,
+    status_id CHAR(5) NOT NULL,
+    FOREIGN KEY (pessoa_id) REFERENCES x12_pessoas(public_id), 
+    FOREIGN KEY (empresa_id) REFERENCES x12_empresas(public_id),
+    FOREIGN KEY (status_id) REFERENCES x12_status(public_id)
 );
+
  
 CREATE TABLE x12_agenda_produtos (
 	agenda_id INT NOT NULL,
