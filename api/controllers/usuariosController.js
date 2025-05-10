@@ -9,17 +9,17 @@ exports.getAll = async (req, res) => {
   }
 }
 
-// exports.getById = async (req, res) => {
-//   try {
-//     const data = await empresaRepo.getById(req.params.id)    
-//     if (!data.empresa) {
-//       return res.status(404).json({ message: 'Empresa não encontrada' })
-//     }
-//     res.json(data)
-//   } catch (err) {
-//     res.status(500).json({ error: err.message })
-//   }
-// }
+exports.getById = async (req, res) => {
+  try {
+    const data = await usuarioRepository.getById(req.params.id)    
+    if (!data.empresa) {
+      return res.status(404).json({ message: 'Usuário não encontrada' })
+    }
+    res.json(data)
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+}
 
 // exports.create = async (req, res) => {
 //   try {

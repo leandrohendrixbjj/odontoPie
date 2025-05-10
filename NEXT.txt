@@ -1,6 +1,7 @@
-5-) Criar uma tabela de status e relacionar a agenda: 
-    Agendado,Triagem,Cotação,Tratamento,Alta,Reaberto,Cancelado
-
 3-) Criar rotas usuarios **TODAS
 
 4-) Criar teste usuarios **TODOS
+
+5-) Criar uma tabela de perfil e relacionar com usuarios
+
+6-) Mudar campo status para situação campo usuarios

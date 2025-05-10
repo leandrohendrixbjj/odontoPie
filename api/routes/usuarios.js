@@ -13,7 +13,7 @@ const usuariosController = require('../controllers/usuariosController')
 
 // 🔍 Rotas de consulta
 router.get('/', usuariosController.getAll)
-//router.get('/:id', validateId, empresasController.getById)
+router.get('/:id', usuariosController.getById)
 
 // ➕ Rota de criação
 // router.post(

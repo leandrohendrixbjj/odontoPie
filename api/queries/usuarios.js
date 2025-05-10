@@ -1,16 +1,16 @@
 const GET_ALL_USUARIOS = `
-  SELECT *
+  SELECT public_id, nome, email, status, createdAt, updatedAt, deletedAt, perfil  
   FROM x12_usuarios
   WHERE deletedAt IS NULL
   ORDER BY id ASC
 `
 
-// const GET_EMPRESA_BY_ID = `
-//   SELECT *
-//   FROM x12_usuarios
-//   WHERE public_id = ?
-//   AND deletedAt IS NULL
-// `;
+const GET_USUARIOS_BY_ID = `
+  SELECT public_id, nome, email, status, createdAt, updatedAt, deletedAt, perfil
+  FROM x12_usuarios
+  WHERE public_id = ?
+  AND deletedAt IS NULL
+`;
 
 // const INSERT_EMPRESA = `
 //   INSERT INTO x12_usuarios (public_id, razao_social, cnpj, email, tipo_pessoa)
@@ -52,8 +52,8 @@ const GET_ALL_USUARIOS = `
 
 
 module.exports = {
-  GET_ALL_USUARIOS
-  // GET_EMPRESA_BY_ID,
+  GET_ALL_USUARIOS,
+  GET_USUARIOS_BY_ID
   // INSERT_EMPRESA,
   // UPDATE_EMPRESA,
   // DELETE_EMPRESA,

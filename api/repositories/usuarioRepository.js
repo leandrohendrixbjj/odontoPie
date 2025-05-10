@@ -6,8 +6,8 @@ const {
 } = require('uuid')
 
 const {
-  GET_ALL_USUARIOS
-  // GET_EMPRESA_BY_ID,
+  GET_ALL_USUARIOS,
+  GET_USUARIOS_BY_ID
   // INSERT_EMPRESA,
   // UPDATE_EMPRESA,
   // DELETE_EMPRESA,
@@ -29,19 +29,18 @@ async function getAll() {
   }
 }
 
-// async function getById(id) {
-//   try {
-//     const [rows] = await db.query(GET_EMPRESA_BY_ID, [id])
+async function getById(id) {
+  try {
+    const [rows] = await db.query(GET_USUARIOS_BY_ID, [id])
 
-//     return {
-//       success: true,
-//       empresa: rows[0] || null
-//     }
-//   } catch (err) {
-//     console.error(`Erro ao buscar empresa com ID ${id}:`, err.message)
-//     throw new Error('Erro ao buscar empresa')
-//   }
-// }
+    return {
+      success: true,
+      empresa: rows[0] || null
+    }
+  } catch (err) {
+    throw new Error(messages('Usuario').error.getById)
+  }
+}
 
 // async function create({
 //   razao_social,
@@ -162,8 +161,8 @@ async function getAll() {
 // }
 
 module.exports = {
-  getAll
-  // getById,
+  getAll,
+  getById
   // create,
   // update,
   // softDelete,
