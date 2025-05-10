@@ -1,4 +1,5 @@
 const db = require('../infra/mysq-connection')
+const messages = require('../messages')
 
 const {
   v4: uuidv4
@@ -18,28 +19,26 @@ const {
 async function getAll() {
   try {
     const [rows] = await db.query(GET_ALL_EMPRESAS)
-
+    
     return {
       success: true,
       empresa: rows || null
     }
-  } catch (err) {
-    console.error('Erro ao buscar empresas:', err.message)
-    throw new Error('Erro ao buscar empresas')
+  } catch (err) {    
+    throw new Error(messages('Empresa').error.getAll)
   }
 }
 
 async function getById(id) {
   try {
     const [rows] = await db.query(GET_EMPRESA_BY_ID, [id])
-
+    
     return {
       success: true,
       empresa: rows[0] || null
     }
-  } catch (err) {
-    console.error(`Erro ao buscar empresa com ID ${id}:`, err.message)
-    throw new Error('Erro ao buscar empresa')
+  } catch (err) {    
+    throw new Error(messages('Empresa').error.getById)
   }
 }
 
@@ -50,14 +49,14 @@ async function create({
   tipo_pessoa
 }) {
   if (!razao_social || !cnpj) {
-    throw new Error('Campos obrigatórios: razao_social,cnpj,tipo_pessoa e email')
+    throw new Error('Campos obrigatórios: razao_social,cnpj,tipo_pessoa e email')    
   }
-
+  
   const public_id = uuidv4()
 
   try {
     const [result] = await db.query(INSERT_EMPRESA, [public_id, razao_social, cnpj, email, tipo_pessoa])
-
+    
     return {
       success: true,
       message: 'Empresa criada com sucesso',
@@ -69,10 +68,9 @@ async function create({
         email,
         tipo_pessoa
       }
-    }
+    }    
   } catch (err) {
-    console.error('Erro ao criar empresa:', err.message)
-    throw new Error('Erro ao criar empresa')
+    throw new Error(messages('Empresa').error.create)    
   }
 }
 
@@ -100,8 +98,7 @@ async function update(id, {
       message: 'Empresa atualizada com sucesso'
     }
   } catch (err) {
-    console.error(`Erro ao atualizar empresa com ID ${id}:`, err.message)
-    throw new Error('Erro ao atualizar empresa')
+    throw new Error(messages('Empresa').error.update)    
   }
 }
 
@@ -120,9 +117,8 @@ async function softDelete(id) {
       success: true,
       message: 'Empresa excluída com sucesso (soft delete)'
     }
-  } catch (err) {
-    console.error(`Erro ao fazer soft delete da empresa ID ${id}:`, err.message)
-    throw new Error('Erro ao excluir empresa')
+  } catch (err) {    
+    throw new Error(messages('Empresa').error.delete)    
   }
 }
 
@@ -141,8 +137,7 @@ async function findByEmail(email,cnpj) {
         
     return result[0].emails > 0
   } catch (err) {
-    console.error(`Erro na consuta do e-mail ${email} da empresa:`, err.message)
-    throw new Error('Erro na consuta do e-mail da empresa')
+    throw new Error(messages('Empresa e-mail da empresa').error.findByEmail)    
   }
 }
 
@@ -155,9 +150,8 @@ async function findByCnpj(cnpj) {
     }
 
     return true
-  } catch (err) {
-    console.error(`Erro na consuta do cnpj ${cnpj} da empresa:`, err.message)
-    throw new Error('Erro na consuta do cnpj da empresa')
+  } catch (err) {    
+    throw new Error(messages('cnpj da empresa').error.findByCnpj)        
   }
 }
 

@@ -1,0 +1,12 @@
+1-) Padronizar empresaRepository com obj messages
+
+2-) Dentro de controlle deixar padrao nome da usuarioRepo
+
+5-) Criar uma tabela de status e relacionar a agenda: 
+    Agendado,Triagem,Cotação,Tratamento,Alta,Reaberto,Cancelado
+
+6-) Quado uma empresa for editada, atualizar o campo update_at    
+
+3-) Criar rotas usuarios **TODAS
+
+4-) Criar teste usuarios **TODOS
