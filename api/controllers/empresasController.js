@@ -1,8 +1,8 @@
-const empresaRepo = require('../repositories/empresaRepository')
+const empresaRepository = require('../repositories/empresaRepository')
 
 exports.getAll = async (req, res) => {
   try {
-    const data = await empresaRepo.getAll()
+    const data = await empresaRepository.getAll()
     res.json(data)
   } catch (err) {
     res.status(500).json({ error: err.message })
@@ -11,7 +11,7 @@ exports.getAll = async (req, res) => {
 
 exports.getById = async (req, res) => {
   try {
-    const data = await empresaRepo.getById(req.params.id)    
+    const data = await empresaRepository.getById(req.params.id)    
     if (!data.empresa) {
       return res.status(404).json({ message: 'Empresa não encontrada' })
     }
@@ -24,7 +24,7 @@ exports.getById = async (req, res) => {
 exports.create = async (req, res) => {
   try {
     const { razao_social, cnpj, email, tipo_pessoa } = req.body
-    const data = await empresaRepo.create({ razao_social, cnpj, email, tipo_pessoa })
+    const data = await empresaRepository.create({ razao_social, cnpj, email, tipo_pessoa })
     res.status(201).json(data)
   } catch (err) {
     console.log('err',err.message)       
@@ -35,7 +35,7 @@ exports.create = async (req, res) => {
 exports.edit = async (req, res) => {
   try {
     const { razao_social, email, tipo_pessoa } = req.body
-    const data = await empresaRepo.update(req.params.id, {
+    const data = await empresaRepository.update(req.params.id, {
       razao_social,      
       email,
       tipo_pessoa
@@ -48,7 +48,7 @@ exports.edit = async (req, res) => {
 
 exports.delete = async (req, res) => {
   try {
-    await empresaRepo.softDelete(req.params.id)
+    await empresaRepository.softDelete(req.params.id)
     res.status(200)
     .json({ status: true, message: 'Empresa excluída' })
   } catch (err) {
