@@ -5,7 +5,7 @@ module.exports = async (req, res, next) => {
     check('razao_social').notEmpty().withMessage('Razão social é obrigatória').run(req),
     check('cnpj')
       .notEmpty().withMessage('CNPJ é obrigatório')
-      .isLength({ min: 14, max: 14 }).withMessage('CNPJ deve ter 14 caracteres')
+      .isLength({ min: 11, max: 14 }).withMessage('CNPJ deve ter 14 caracteres')
       .run(req),
     check('email')
       .notEmpty().withMessage('E-mail é obrigatório')

@@ -4,9 +4,10 @@ const router = express.Router()
 const empresasController = require('../controllers/empresasController')
 const {
   validateId,
+  consultaEmpresaId,
   validateEmpresaCampos,
   consultaEmpresaEmail,
-  consultaEmpresaCNPJ
+  consultaEmpresaCNPJ,  
 } = require('../middleware/validation/Empresa/index')
 
 // 🔍 Rotas de consulta
@@ -32,6 +33,8 @@ router.put(
 )
 
 // ❌ Rota de exclusão
-router.delete('/:id', validateId, empresasController.delete)
+router.delete('/:id', validateId, 
+  consultaEmpresaId,
+  empresasController.delete)
 
 module.exports = router

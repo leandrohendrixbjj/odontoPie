@@ -1,5 +1,0 @@
-2-) Criar teste para edit do empresa controller
-
-3-) Criar teste para delete do empresa controller
-
-4-) Validar todos os teste de empresa

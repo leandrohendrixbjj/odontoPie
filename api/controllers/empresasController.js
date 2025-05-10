@@ -49,7 +49,8 @@ exports.edit = async (req, res) => {
 exports.delete = async (req, res) => {
   try {
     await empresaRepo.softDelete(req.params.id)
-    res.status(204).json({ message: 'Empresa excluída (soft delete)' })
+    res.status(200)
+    .json({ status: true, message: 'Empresa excluída' })
   } catch (err) {
     res.status(500).json({ error: err.message })
   }

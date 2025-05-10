@@ -5,6 +5,7 @@ const request = require('supertest')
 const empresaController = require('../controllers/empresasController')
 const {
     validateId,
+    consultaEmpresaId,
     validateEmpresaCampos,
     consultaEmpresaEmail,
     consultaEmpresaCNPJ
@@ -24,6 +25,7 @@ beforeAll(() => {
   app.get('/empresas/:id', empresaController.getById)
   app.post('/empresas/valida', validateEmpresaCampos, empresaController.create)
   app.put('/empresas/:id', validateId, validateEmpresaCampos, consultaEmpresaEmail, empresaController.edit) 
+  app.delete('/empresas/:id', validateId, consultaEmpresaId, empresaController.delete) 
 })
 
 afterAll(async () => {
@@ -109,83 +111,34 @@ describe.skip('POST :: /empresas', () => {
   })
 })
 
-describe.skip('PUT :: /empresas/:id', () => {
-  it.skip('❌ EDITAR COM ID INVÁLIDO', async () => {
+describe('DELETE :: /empresas/:id', () => {
+  it.skip('❌ REMOVER COM ID INVÁLIDO', async () => {
     const publicId = '9999999'
-    const body = {
-      ...baseBody,      
-    }
     
     const res = await request(app)
-      .put(`/empresas/${publicId}`)
-      .send(body)      
+      .delete(`/empresas/${publicId}`)      
     
-    expect(res.body.error).toContain('ID inválido');
+    expect(res.body.error).toContain('ID inválido')
 
   })
 
-  it.skip('❌ EDITAR UMA EMPRESA INEXISTENTE', async () => {
-    const publicId = '424e3353-b4ae-48ce-9cbe-12079fd071d4'
-    const body = {
-      ...baseBody,      
-    }
+  it.skip('❌ REMOVER ID INEXISTENTE', async () => {
+    const publicId = '3816a937-7260-46e9-9c92-2c8c6a06ee6a'
     
     const res = await request(app)
-      .put(`/empresas/${publicId}`)
-      .send(body)      
+      .delete(`/empresas/${publicId}`)      
     
-    expect(res.body.message).toContain('Empresa não encontrada')
-  })
+    expect(res.body.error).toContain('não possui cadastro');
 
-  it.skip('❌ EDITAR CAMPOS FORA DO PADRÃO', async () => {
-    const publicId = '424e3353-b4ae-48ce-9cbe-12079fd071d3'
-    
-    const body = {
-      ...baseBody,
-      cnpj: null
-    };
 
-    const res = await request(app)
-      .put(`/empresas/${publicId}`)
-      .send(body);
-
-    expect(res.body.errors[0].msg).toBeTruthy()
-    
   })
   
-  it.skip('❌ EDITAR EMAIL EXISTENTE EM OUTRA EMPRESA', async () => {
-    const publicId = '424e3353-b4ae-48ce-9cbe-12079fd071d3'
-
-    const body = {
-      ...baseBody,
-      cnpj: '04252011000110',
-      email: '1pedro@novaempresa.com.br',
-    }
+  it.skip('✅ REMOVER', async () => {
+    const publicId = 'd16d48af-d322-4783-a537-2f56d4ba0a01'
 
     const res = await request(app)
-      .put(`/empresas/${publicId}`)
-      .send(body) 
-
-    expect(res.body).toEqual({
-      error: `E-mail: ${body.email} já está sendo usado por outro cadastro`
-    })
-      
-  })
-
-  it.skip('✅ EDITAR', async () => {
-    const publicId = '424e3353-b4ae-48ce-9cbe-12079fd071d3'
-
-    const body = {      
-      razao_social:"Bento Ribeiro Gonçalves",  
-      cnpj: "04252011000110",  
-      email: "lala2@novaempresa.com.br",
-      tipo_pessoa: "PF"
-    }
-
-    const res = await request(app)
-      .put(`/empresas/${publicId}`)
-      .send(body) 
-
+    .delete(`/empresas/${publicId}`)          
+   
     expect(res.statusCode).toBe(200)      
   })
 })
