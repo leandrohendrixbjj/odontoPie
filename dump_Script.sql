@@ -1,5 +1,14 @@
 use saudesys;
 
+DROP TABLE IF EXISTS x12_agenda_produtos;
+DROP TABLE IF EXISTS x12_agenda;
+DROP TABLE IF EXISTS x12_status;
+DROP TABLE IF EXISTS x12_produtos;
+DROP TABLE IF EXISTS x12_pessoas;
+DROP TABLE IF EXISTS x12_usuarios;
+DROP TABLE IF EXISTS x12_perfis;
+DROP TABLE IF EXISTS x12_empresas;
+
 CREATE TABLE x12_empresas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     public_id CHAR(36) UNIQUE NOT NULL,  
@@ -12,19 +21,30 @@ CREATE TABLE x12_empresas (
     deletedAt DATETIME NULL
 );
 
+CREATE TABLE x12_perfis (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    public_id CHAR(5) UNIQUE NOT NULL,
+    nome VARCHAR(100) NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME ON UPDATE CURRENT_TIMESTAMP,
+    deletedAt DATETIME NULL
+);
+
+
 CREATE TABLE x12_usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     public_id CHAR(36) UNIQUE NOT NULL,
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     senha VARCHAR(100) NOT NULL,
-    status TINYINT DEFAULT 1,
+    situacao TINYINT DEFAULT 1,
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     updatedAt DATETIME ON UPDATE CURRENT_TIMESTAMP,
     deletedAt DATETIME NULL,
-    perfil VARCHAR(100),
     empresa_id CHAR(36) NOT NULL,
-    FOREIGN KEY (empresa_id) REFERENCES x12_empresas(public_id) 
+    perfil_id CHAR(36) NOT NULL,
+    FOREIGN KEY (empresa_id) REFERENCES x12_empresas(public_id), 
+    FOREIGN KEY (perfil_id) REFERENCES x12_perfis(public_id) 
 );
 
 CREATE TABLE x12_pessoas (

@@ -2,6 +2,3 @@
 
 4-) Criar teste usuarios **TODOS
 
-5-) Criar uma tabela de perfil e relacionar com usuarios
-
-6-) Mudar campo status para situação campo usuarios
