@@ -25,6 +25,7 @@ async function getAll() {
       empresa: rows || null
     }
   } catch (err) {
+    console.log(err)
     throw new Error(messages('Usuario').error.getAll)
   }
 }

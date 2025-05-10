@@ -4,7 +4,7 @@ const validateId = (req, res, next) => {
     const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
   
     if (!id || !uuidRegex.test(id)) {
-      return res.status(400).json({ error: 'ID inválido. Deve ser uma hash UUID válida.' })
+      return res.status(400).json({ error: 'ID inválido.' })
     }
     next()
   }  

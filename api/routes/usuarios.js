@@ -2,9 +2,9 @@ const express = require('express')
 const router = express.Router()
 
 const usuariosController = require('../controllers/usuariosController')
+const validateId =  require('../middleware/validation/validateId')
 
 // const {
-//   validateId,
 //   consultaEmpresaId,
 //   validateEmpresaCampos,
 //   consultaEmpresaEmail,
@@ -13,7 +13,7 @@ const usuariosController = require('../controllers/usuariosController')
 
 // 🔍 Rotas de consulta
 router.get('/', usuariosController.getAll)
-router.get('/:id', usuariosController.getById)
+router.get('/:id', validateId, usuariosController.getById)
 
 // ➕ Rota de criação
 // router.post(

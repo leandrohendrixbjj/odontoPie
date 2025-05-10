@@ -1,12 +1,12 @@
 const GET_ALL_USUARIOS = `
-  SELECT public_id, nome, email, status, createdAt, updatedAt, deletedAt, perfil  
+  SELECT public_id, nome, email, situacao, createdAt, updatedAt, deletedAt, perfil_id  
   FROM x12_usuarios
   WHERE deletedAt IS NULL
   ORDER BY id ASC
 `
 
 const GET_USUARIOS_BY_ID = `
-  SELECT public_id, nome, email, status, createdAt, updatedAt, deletedAt, perfil
+  SELECT public_id, nome, email, situacao, createdAt, updatedAt, deletedAt, perfil_id
   FROM x12_usuarios
   WHERE public_id = ?
   AND deletedAt IS NULL
