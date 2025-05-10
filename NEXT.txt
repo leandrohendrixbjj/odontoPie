@@ -1,3 +1,10 @@
+0-) Permitir que um e-email seja editado para a empresa,
+desde que que esse novo e-mail não esteja vinculado a nenhum outra empresa
+mexer na rota de edit empresa: em: middleware/validation/empresa/email
+
+0.1-) Colocar uma validação, na edição onde se form uma put
+é necessário que tenhamos um cnpj informado pelo frontend
+
 1-) Criar teste para validar cnpj, email em create
 
 2-) Criar teste para edit do empresa controller

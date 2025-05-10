@@ -41,7 +41,7 @@ const GET_EMPRESA_EMAIL_CNPJ = `
   SELECT count(*) AS emails
   FROM T01_empresas
   WHERE email= ?  
-  AND cnpj= ?
+  AND cnpj not in (?)
 `;
 
 const GET_EMPRESA_CNPJ = `
