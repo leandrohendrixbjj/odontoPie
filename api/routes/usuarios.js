@@ -4,25 +4,22 @@ const router = express.Router()
 const usuariosController = require('../controllers/usuariosController')
 const validateId =  require('../middleware/validation/validateId')
 
-// const {
-//   consultaEmpresaId,
-//   validateEmpresaCampos,
-//   consultaEmpresaEmail,
-//   consultaEmpresaCNPJ,  
-// } = require('../middleware/validation/Empresa/index')
+const {
+    validateUsuarioCampos,
+    consultaUsuarioEmail  
+} = require('../middleware/validation/Usuario/index')
 
 // 🔍 Rotas de consulta
 router.get('/', usuariosController.getAll)
 router.get('/:id', validateId, usuariosController.getById)
 
 // ➕ Rota de criação
-// router.post(
-//   '/',
-//   validateEmpresaCampos,
-//   consultaEmpresaEmail,
-//   consultaEmpresaCNPJ,
-//   empresasController.create
-// )
+router.post(
+  '/',
+  validateUsuarioCampos,
+  consultaUsuarioEmail,
+  usuariosController.create
+)
 
 // ✏️ Rota de edição
 // router.put(

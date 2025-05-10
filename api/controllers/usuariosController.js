@@ -21,16 +21,16 @@ exports.getById = async (req, res) => {
   }
 }
 
-// exports.create = async (req, res) => {
-//   try {
-//     const { razao_social, cnpj, email, tipo_pessoa } = req.body
-//     const data = await empresaRepo.create({ razao_social, cnpj, email, tipo_pessoa })
-//     res.status(201).json(data)
-//   } catch (err) {
-//     console.log('err',err.message)       
-//     res.status(500).json({ error: err.message })
-//   }
-// }
+exports.create = async (req, res) => {
+  try {
+    const { nome, email, empresaId, perfilId } = req.body
+    const data = await usuarioRepository.create({ nome, email, empresaId, perfilId })
+    res.status(201).json(data)
+  } catch (err) {
+    console.log('err',err.message)       
+    res.status(500).json({ error: err.message })
+  }
+}
 
 // exports.edit = async (req, res) => {
 //   try {

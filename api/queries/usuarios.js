@@ -12,10 +12,10 @@ const GET_USUARIOS_BY_ID = `
   AND deletedAt IS NULL
 `;
 
-// const INSERT_EMPRESA = `
-//   INSERT INTO x12_usuarios (public_id, razao_social, cnpj, email, tipo_pessoa)
-//   VALUES (?, ?, ?, ?, ?)
-// `;
+const INSERT_USUARIOS = `
+  INSERT INTO x12_usuarios (public_id, nome, email, senha, empresa_id, perfil_id)
+  VALUES (?, ?, ?, ?, ?, ?)
+`;
 
 // const UPDATE_EMPRESA = `
 //   UPDATE x12_usuarios SET
@@ -31,11 +31,11 @@ const GET_USUARIOS_BY_ID = `
 //   WHERE public_id = ?
 // `;
 
-// const GET_EMPRESA_EMAIL = `
-//   SELECT count(*) AS emails
-//   FROM x12_usuarios
-//   WHERE email= ?  
-// `;
+const GET_USUARIO_EMAIL = `
+  SELECT count(*) AS emails
+  FROM x12_usuarios
+  WHERE email= ?  
+`;
 
 // const GET_EMPRESA_EMAIL_CNPJ = `
 //   SELECT count(*) AS emails
@@ -53,11 +53,11 @@ const GET_USUARIOS_BY_ID = `
 
 module.exports = {
   GET_ALL_USUARIOS,
-  GET_USUARIOS_BY_ID
-  // INSERT_EMPRESA,
+  GET_USUARIOS_BY_ID,
+  INSERT_USUARIOS,
   // UPDATE_EMPRESA,
   // DELETE_EMPRESA,
-  // GET_EMPRESA_EMAIL,
+  GET_USUARIO_EMAIL
   // GET_EMPRESA_EMAIL_CNPJ,
   // GET_EMPRESA_CNPJ
 }

@@ -1,4 +1,8 @@
-3-) Criar rotas usuarios **TODAS
+1-) Criar middleware para validar email do usuário
+
+2-) Criar rota para edição ( middleware )
+
+3-) Criar rota para delete ( middleware )
 
 4-) Criar teste usuarios **TODOS
 

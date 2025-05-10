@@ -7,11 +7,11 @@ const {
 
 const {
   GET_ALL_USUARIOS,
-  GET_USUARIOS_BY_ID
-  // INSERT_EMPRESA,
+  GET_USUARIOS_BY_ID,
+  INSERT_USUARIOS,
   // UPDATE_EMPRESA,
   // DELETE_EMPRESA,
-  // GET_EMPRESA_EMAIL,  
+  GET_USUARIO_EMAIL
   // GET_EMPRESA_EMAIL_CNPJ,
   // GET_EMPRESA_CNPJ
 } = require('../queries/usuarios')
@@ -43,38 +43,37 @@ async function getById(id) {
   }
 }
 
-// async function create({
-//   razao_social,
-//   cnpj,
-//   email,
-//   tipo_pessoa
-// }) {
-//   if (!razao_social || !cnpj) {
-//     throw new Error('Campos obrigatórios: razao_social,cnpj,tipo_pessoa e email')
-//   }
+async function create({
+  nome,
+  email,  
+  empresaId,
+  perfilId
+}) {
+  if (!nome || !email) {
+    throw new Error('Campos obrigatórios: nome, email')
+  }
 
-//   const public_id = uuidv4()
+  const public_id = uuidv4()
+  const senha = uuidv4()
+  
+  try {
+    const [result] = await db.query(INSERT_USUARIOS, [public_id, nome, email, senha, empresaId, perfilId])
 
-//   try {
-//     const [result] = await db.query(INSERT_EMPRESA, [public_id, razao_social, cnpj, email, tipo_pessoa])
-
-//     return {
-//       success: true,
-//       message: 'Empresa criada com sucesso',
-//       empresa: {
-//         id: result.insertId,
-//         public_id,
-//         razao_social,
-//         cnpj,
-//         email,
-//         tipo_pessoa
-//       }
-//     }
-//   } catch (err) {
-//     console.error('Erro ao criar empresa:', err.message)
-//     throw new Error('Erro ao criar empresa')
-//   }
-// }
+    return {
+      success: true,
+      message: 'Usuário criada com sucesso',
+      empresa: {
+        id: result.insertId,
+        public_id,
+        nome,
+        email        
+      }
+    }
+  } catch (err) {   
+    console.error('Erro ao criar usuário:', err.message) 
+    throw new Error('Erro ao criar usuário')
+  }
+}
 
 // async function update(id, {
 //   razao_social,  
@@ -126,25 +125,20 @@ async function getById(id) {
 //   }
 // }
 
-// async function findByEmail(email,cnpj) {
-//   try {
-//     let query = GET_EMPRESA_EMAIL
+async function findByEmail(email) {
+  try {
+    const query = GET_USUARIO_EMAIL
 
-//     const params = [email]
+    const params = [email]
 
-//     if (cnpj) {
-//       query = GET_EMPRESA_EMAIL_CNPJ
-//       params.push(cnpj)
-//     }    
-    
-//     const [result] = await db.query(query,params)    
+    const [result] = await db.query(query,params)    
         
-//     return result[0].emails > 0
-//   } catch (err) {
-//     console.error(`Erro na consuta do e-mail ${email} da empresa:`, err.message)
-//     throw new Error('Erro na consuta do e-mail da empresa')
-//   }
-// }
+    return result[0].emails > 0
+  } catch (err) {
+    console.error(`Erro na consuta do e-mail ${email} do usuario:`, err.message)
+    throw new Error(`Erro na consuta do e-mail ${email} do usuario`)
+  }
+}
 
 // async function findByCnpj(cnpj) {
 //   try {
@@ -163,10 +157,10 @@ async function getById(id) {
 
 module.exports = {
   getAll,
-  getById
-  // create,
+  getById,
+  create,
   // update,
   // softDelete,
-  // findByEmail,
+  findByEmail
   // findByCnpj
 }
