@@ -91,7 +91,7 @@ async function update(id, {
     if (result.affectedRows === 0) {
       return {
         success: false,
-        message: 'Empresa não encontrada ou dados idênticos'
+        message: 'Empresa não encontrada'
       }
     }
 
